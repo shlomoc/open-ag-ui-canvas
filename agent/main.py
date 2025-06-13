@@ -3,8 +3,11 @@ from fastapi import FastAPI
 import os
 import uvicorn
 from copilotkit import CopilotKitSDK, LangGraphAgent
+from copilotkit.crewai import CrewAIAgent
+
 from copilotkit.integrations.fastapi import add_fastapi_endpoint
 from research_langgraph import graph
+from planner_crew import PlannerFlow
 
 app = FastAPI()
 
@@ -14,6 +17,11 @@ sdk = CopilotKitSDK(
             name="langgraphAgent",
             description="An agent that can help you with your research.",
             graph=graph
+        ),
+        CrewAIAgent(
+            name="crewaiAgent",
+            description="An agent that can help with planning a project",
+            flow=PlannerFlow(),
         ),
     ]
 )

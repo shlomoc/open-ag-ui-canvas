@@ -61,13 +61,12 @@ export function Workspace({ selectedAgent, lastMessage }: WorkspaceProps) {
         )
       case "crewaiAgent":
         return (
-          // <PlannerWorkspace
-          //   content={workspaceContent}
-          //   setContent={setWorkspaceContent}
-          //   lastMessage={lastMessage}
-          //   isAgentActive={isAgentActive}
-          // />
-          <></>
+          <PlannerWorkspace
+            content={workspaceContent.content}
+            setContent={(content: string) => setWorkspaceContent({ ...workspaceContent, content })  }
+            lastMessage={lastMessage}
+            isAgentActive={isAgentActive}
+          />
         )
       case "haikuAgent":
         return (
