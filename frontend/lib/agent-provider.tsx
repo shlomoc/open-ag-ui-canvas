@@ -29,7 +29,7 @@ export const AgentProvider = ({ children }: { children: ReactNode }) => {
   const [agents, setAgents] = useState<Agent[]>([]);
   // const { agentId } = useParams()
   const pathname = usePathname()
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   // const agentId = searchParams.get('agentId')
   // console.log(pathname.split("/")[1])
 
