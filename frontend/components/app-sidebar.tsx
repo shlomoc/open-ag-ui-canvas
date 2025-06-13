@@ -27,7 +27,7 @@ export function AppSidebar({ messages, addMessage, selectedAgent, setSelectedAge
       <div className="h-full rounded-xl">
         <CopilotChat
           className="h-full rounded-xl border-l-2 border-muted-foreground/20"
-          Input={({onSend}) => {
+          Input={({onSend, inProgress}) => {
             const [input, setInput] = useState("")
             return (<>
               <div className="space-y-5 px-4 py-2">
@@ -40,7 +40,8 @@ export function AppSidebar({ messages, addMessage, selectedAgent, setSelectedAge
                     placeholder="Type your message..."
                     className="min-h-[80px] resize-none rounded-xl border-muted-foreground/20 p-3"
                   />
-                  <Button onClick={(e) => {
+                  <Button disabled={inProgress} 
+                  onClick={(e) => {
                     e.preventDefault()
                     onSend(input)
                     setInput("")
