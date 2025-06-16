@@ -34,8 +34,8 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
     {
       projectName: "Launch MVP",
       isSelected: true,
-      due : moment(new Date()).format("MMM D, YYYY"),
-      teamCount : 3,
+      due: moment(new Date()).format("MMM D, YYYY"),
+      teamCount: 3,
       tasks: initialTasks
     }
   ])
@@ -94,7 +94,7 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
       const newTasks = items.map((item) => ({
         id: uuidv4(),
         title: item.task,
-        isSelected: true,
+        isSelected: false,
         priority: item.priority,
         assignee: "Agent",
         completed: false
@@ -103,7 +103,7 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
 
       setTasks(tasks.map((project) => (project.isSelected ? { ...project, tasks: [...project.tasks, ...newTasks] } : project)))
 
-  
+
     }
   })
 
@@ -136,15 +136,15 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
             type: "object[]",
             attributes: [
               {
-                name : "task",
-                type : "string",
-                description : "The task to add to the project"
+                name: "task",
+                type: "string",
+                description: "The task to add to the project"
               },
               {
-                name : "priority",
-                type : "string",
-                description : "The priority of the task",
-                enum : ["High", "Medium", "Low"]
+                name: "priority",
+                type: "string",
+                description: "The priority of the task",
+                enum: ["High", "Medium", "Low"]
               }
             ]
           }
@@ -154,9 +154,9 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
     handler({ project }: { project: { projectName: string, due: string, teamCount: number, tasks: { task: string, priority: string }[] } }) {
       console.log("Adding project:", project)
       setTasks(
-        [...tasks.map((task) => ({...task, isSelected: false})), {
+        [...tasks.map((task) => ({ ...task, isSelected: false })), {
           projectName: project.projectName,
-          isSelected: true,
+          isSelected: false,
           due: moment(project.due).format("MMM D, YYYY"),
           teamCount: project.teamCount,
           tasks: project.tasks.map((task) => ({
@@ -167,7 +167,7 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
             completed: false
           }))
         }
-      ]
+        ]
       )
     }
   })
@@ -197,10 +197,11 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-full min-h-[600px]">
+    // <main className="h-screen">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-full min-h-0">
       {/* Main Planning Board */}
-      <div className="lg:col-span-2 flex flex-col h-full">
-        <Card className="rounded-2xl shadow-sm flex-1 flex flex-col">
+      <div className="lg:col-span-2 space-y-6 h-full flex flex-col min-h-0">
+        <Card className="rounded-2xl shadow-sm h-full flex flex-col">
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl">{tasks.find((project) => project.isSelected)?.projectName}</CardTitle>
@@ -212,10 +213,11 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
               )}
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pb-4 flex-1 min-h-0 h-full overflow-auto">
             <div className="space-y-4">
               <div className="flex gap-2">
                 <Input
+                  className="focus-visible:ring-0"
                   value={newTask}
                   onChange={(e) => setNewTask(e.target.value)}
                   placeholder="Add a new task..."
@@ -226,7 +228,7 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
                 </Button>
               </div>
 
-              <ScrollArea className="h-[400px]">
+              <ScrollArea className="flex-1 min-h-0">
                 <div className="space-y-3">
                   {tasks.find((project) => project.isSelected)?.tasks.map((task) => (
                     <div key={task.id} className="flex items-center gap-3 p-4 rounded-lg border">
@@ -288,9 +290,9 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
       </div>
 
       {/* Planning Tools Sidebar */}
-      <div className="space-y-6">
+      <div className="flex flex-col h-full min-h-0 space-y-6 overflow-auto">
         {showProjectForm ? (
-          <Card className="rounded-2xl shadow-sm min-h-[250px]">
+          <Card className="rounded-2xl shadow-sm">
             <CardHeader className="pb-4">
               <CardTitle className="text-lg">Create New Project</CardTitle>
             </CardHeader>
@@ -334,7 +336,7 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
                       ...tasks,
                       {
                         ...newProject,
-                        isSelected: true,
+                        isSelected: false,
                         due: moment(newProject.due).format("MMM D, YYYY"),
                         tasks: []
                       }
@@ -353,7 +355,7 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
             </CardContent>
           </Card>
         ) : (
-          <Card className="rounded-2xl shadow-sm min-h-[335px]">
+          <Card className="rounded-2xl shadow-sm flex flex-col h-1/3 min-h-64 max-h-96">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-lg">Project List</CardTitle>
@@ -362,21 +364,25 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
                 </Button>
               </div>
             </CardHeader>
-            <CardContent className="space-y-2">
-              {tasks.map((project) => (
-                <Button
-                  key={project.projectName}
-                  variant="outline"
-                  className={`w-full justify-start gap-2 ${project.isSelected ? "bg-gray-100" : ""}`}
-                  onClick={() => setTasks(tasks.map((task) => (task.projectName == project.projectName ? { ...task, isSelected: true } : { ...task, isSelected: false })))}
-                >
-                  <Calendar className="h-4 w-4" />
-                  {project.projectName}
-                  {project.isSelected && (
-                    <span className="ml-auto text-lg text-black">●</span>
-                  )}
-                </Button>
-              ))}
+            <CardContent className="space-y-2 flex-1 flex flex-col min-h-0">
+              <ScrollArea className="flex-1 min-h-0">
+                <div className="space-y-2">
+                  {tasks.map((project) => (
+                    <Button
+                      key={project.projectName + Math.random()}
+                      variant="outline"
+                      className={`w-full justify-start gap-2 ${project.isSelected ? "bg-gray-100" : ""}`}
+                      onClick={() => setTasks(tasks.map((task) => (task.projectName == project.projectName ? { ...task, isSelected: false } : { ...task, isSelected: false })))}
+                    >
+                      <Calendar className="h-4 w-4" />
+                      {project.projectName}
+                      {project.isSelected && (
+                        <span className="ml-auto text-lg text-black">●</span>
+                      )}
+                    </Button>
+                  ))}
+                </div>
+              </ScrollArea>
             </CardContent>
           </Card>
         )}
@@ -435,5 +441,6 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
 
       </div>
     </div>
+    // </main>
   )
 }

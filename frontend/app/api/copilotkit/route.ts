@@ -17,7 +17,7 @@ const runtime = new CopilotRuntime({
 
 export const POST = async (req: NextRequest) => {
     if (req.nextUrl.searchParams.get("isMastra")) {
-        const baseUrl = process.env.NEXT_PUBLIC_REMOTE_ACTION_URL_MASTRA || "http://localhost:4112";
+        const baseUrl = process.env.NEXT_PUBLIC_REMOTE_ACTION_URL_MASTRA || "http://localhost:4111";
         const mastra = new MastraClient({
             baseUrl,
         });

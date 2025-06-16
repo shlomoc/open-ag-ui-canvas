@@ -85,10 +85,10 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
   })
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 h-full min-h-0">
       {/* Main Research Document */}
-      <div className="lg:col-span-2 space-y-6">
-        <Card className="rounded-2xl shadow-sm max-h-[calc(100vh-64px)] overflow-y-auto">
+      <div className="lg:col-span-2 space-y-6 h-full flex flex-col min-h-0">
+        <Card className="rounded-2xl shadow-sm h-full flex flex-col">
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl">Research Document</CardTitle>
@@ -100,10 +100,11 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
               )}
             </div>
           </CardHeader>
-          <CardContent className="h-[625px] pb-4">
+          <CardContent className="pb-4 flex-1 min-h-0 overflow-auto">
             {isEditing ? (
               <textarea
-                className="w-full h-[400px] border rounded p-2 text-base font-sans"
+                className="w-full h-full border rounded p-2 text-base font-sans min-h-0 flex-1"
+                style={{ minHeight: 0, height: '100%' }}
                 value={editValue}
                 autoFocus
                 onChange={e => setEditValue(e.target.value)}
@@ -118,43 +119,42 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
                 setIsEditing(true)
                 setEditValue(extractReportMarkdown(workspaceContent))
               }}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", height: '100%' }}
                 title="Click to edit"
+                className="h-full"
               >
                 <Markdown content={workspaceContent} />
               </div>
             )}
           </CardContent>
+          {/* Agent Suggestions */}
+          {isAgentActive && lastMessage && (
+            <Card className="rounded-2xl border-primary/20 bg-primary/5 shadow-sm w-full mt-2">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Lightbulb className="h-5 w-5 text-primary" />
+                  Agent Insights
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm leading-relaxed">{lastMessage}</p>
+                <div className="mt-4 flex gap-2">
+                  <Button size="sm" variant="outline">
+                    Apply Suggestion
+                  </Button>
+                  <Button size="sm" variant="ghost">
+                    Dismiss
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </Card>
-
-        {/* Agent Suggestions */}
-        {isAgentActive && lastMessage && (
-          <Card className="rounded-2xl border-primary/20 bg-primary/5 shadow-sm">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Lightbulb className="h-5 w-5 text-primary" />
-                Agent Insights
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm leading-relaxed">{lastMessage}</p>
-              <div className="mt-4 flex gap-2">
-                <Button size="sm" variant="outline">
-                  Apply Suggestion
-                </Button>
-                <Button size="sm" variant="ghost">
-                  Dismiss
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        )}
       </div>
-
       {/* Research Tools Sidebar */}
-      <div className="space-y-6 lg:sticky lg:self-start">
+      <div className="space-y-6 lg:sticky h-full flex flex-col min-h-0 lg:self-start">
         {/* Sources */}
-        <Card className="rounded-2xl shadow-sm mr-4">
+        <Card className="rounded-2xl shadow-sm mr-4 h-full flex flex-col">
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">Sources</CardTitle>
@@ -202,8 +202,8 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
               </form>
             )}
           </CardHeader>
-          <CardContent>
-            <ScrollArea className="h-[590px]">
+          <CardContent className="flex-1 min-h-0 overflow-auto">
+            <ScrollArea className="h-full">
               <div className="space-y-3">
                 {resources.length === 0 ? (
                   <div className="text-center text-muted-foreground py-8">No sources to show</div>
@@ -253,8 +253,6 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
             </ScrollArea>
           </CardContent>
         </Card>
-
-       
       </div>
     </div>
   )

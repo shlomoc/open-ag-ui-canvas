@@ -203,13 +203,13 @@ export function Workspace({ selectedAgent, lastMessage }: WorkspaceProps) {
   
 
   return (
-    <main className="flex flex-1 flex-col overflow-hidden">
+    <main className="flex flex-1 h-screen flex-col overflow-hidden">
       <WorkspaceToolbar
         selectedAgent={selectedAgent}
         isAgentActive={isAgentActive}
         setIsAgentActive={setIsAgentActive}
       />
-      <div className="flex-1 overflow-auto p-2">
+      <div className="flex-1 h-screen overflow-auto p-2">
         <div className="flex h-full gap-6">
           {/* Chat UI Sidebar Placeholder */}
           <div className="w-80 min-w-[18rem] max-w-xs bg-white flex flex-col justify-between">
@@ -222,8 +222,8 @@ export function Workspace({ selectedAgent, lastMessage }: WorkspaceProps) {
             />
           </div>
           {/* Main Workspace */}
-          <div className="flex-1 mt-4">
-            <div className="mx-auto">{renderWorkspace()}</div>
+          <div className="flex-1 mt-4 mb-4">
+            <div className="h-full">{renderWorkspace()}</div>
           </div>
         </div>
       </div>

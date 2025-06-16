@@ -50,10 +50,10 @@ export function HaikuWorkspace({ haikus, setHaikus, selectedHaiku, setSelectedHa
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 h-full min-h-0" style={{height: '100%'}}>
       {/* Code Editor */}
-      <div className="lg:col-span-3 space-y-6">
-        <Card className="rounded-2xl shadow-sm">
+      <div className="lg:col-span-3 h-full flex flex-col min-h-0">
+        <Card className="rounded-2xl shadow-sm h-full flex flex-col min-h-0">
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -61,127 +61,120 @@ export function HaikuWorkspace({ haikus, setHaikus, selectedHaiku, setSelectedHa
               </div>
             </div>
           </CardHeader>
-          <CardContent className="h-[630px]">
-            <div className="flex-1 p-8 flex items-center justify-center " style={{ marginLeft: '-48px' }}>
-              <div className="haiku-stack">
-                {/* {haikus.map((haiku, index) => ( */}
-                <div
-                  // key={index}
-                  // className={`haiku-card animated-fade-in ${isJustApplied && index === activeIndex ? 'applied-flash' : ''} ${index === activeIndex ? 'active' : ''}`}
-                  className={`haiku-card`}
-                // onClick={() => setActiveIndex(index)}
-                >
-                  {selectedHaiku?.japanese.map((line, lineIndex) => (
-                    <div
-                      className="flex items-start gap-4 mb-4 haiku-line"
-                      key={lineIndex}
-                    >
-                      {editing?.type === 'japanese' && editing.index === lineIndex ? (
-                        <input
-                          ref={inputRef}
-                          className="text-4xl font-bold text-gray-600 w-auto bg-transparent focus:outline-none"
-                          style={{
-                            border: 'none',
-                            width: `${editValue.length + 3.5}ch`,
-                            minWidth: '1ch',
-                            padding: 0,
-                            margin: 0,
-                            background: 'transparent',
-                          }}
-                          value={editValue}
-                          onChange={e => setEditValue(e.target.value)}
-                          onBlur={() => {
+          <CardContent className="flex-1 flex items-center justify-center min-h-0" style={{ marginLeft: '-48px' }}>
+            <div className="haiku-stack w-full h-full flex items-center justify-center">
+              <div
+                className={`haiku-card`}
+              >
+                {selectedHaiku?.japanese.map((line, lineIndex) => (
+                  <div
+                    className="flex items-start gap-4 mb-4 haiku-line"
+                    key={lineIndex}
+                  >
+                    {editing?.type === 'japanese' && editing.index === lineIndex ? (
+                      <input
+                        ref={inputRef}
+                        className="text-4xl font-bold text-gray-600 w-auto bg-transparent focus:outline-none"
+                        style={{
+                          border: 'none',
+                          width: `${editValue.length + 3.5}ch`,
+                          minWidth: '1ch',
+                          padding: 0,
+                          margin: 0,
+                          background: 'transparent',
+                        }}
+                        value={editValue}
+                        onChange={e => setEditValue(e.target.value)}
+                        onBlur={() => {
+                          updateHaikuLine('japanese', lineIndex, editValue);
+                          setEditing(null);
+                        }}
+                        onKeyDown={e => {
+                          if (e.key === 'Enter') {
                             updateHaikuLine('japanese', lineIndex, editValue);
                             setEditing(null);
-                          }}
-                          onKeyDown={e => {
-                            if (e.key === 'Enter') {
-                              updateHaikuLine('japanese', lineIndex, editValue);
-                              setEditing(null);
-                            }
-                          }}
-                        />
-                      ) : (
-                        <p
-                          className="text-4xl font-bold text-gray-600 w-auto cursor-pointer"
-                          onClick={() => {
-                            setEditing({ type: 'japanese', index: lineIndex });
-                            setEditValue(line);
-                          }}
-                        >
-                          {line}
-                        </p>
-                      )}
-                      {editing?.type === 'english' && editing.index === lineIndex ? (
-                        <input
-                          ref={inputRef}
-                          className="text-base font-light text-gray-600 w-auto bg-transparent focus:outline-none"
-                          style={{
-                            border: 'none',
-                            width: `${editValue.length + 1}ch`,
-                            minWidth: '1ch',
-                            padding: 0,
-                            margin: 0,
-                            background: 'transparent',
-                          }}
-                          value={editValue}
-                          onChange={e => setEditValue(e.target.value)}
-                          onBlur={() => {
+                          }
+                        }}
+                      />
+                    ) : (
+                      <p
+                        className="text-4xl font-bold text-gray-600 w-auto cursor-pointer"
+                        onClick={() => {
+                          setEditing({ type: 'japanese', index: lineIndex });
+                          setEditValue(line);
+                        }}
+                      >
+                        {line}
+                      </p>
+                    )}
+                    {editing?.type === 'english' && editing.index === lineIndex ? (
+                      <input
+                        ref={inputRef}
+                        className="text-base font-light text-gray-600 w-auto bg-transparent focus:outline-none"
+                        style={{
+                          border: 'none',
+                          width: `${editValue.length + 1}ch`,
+                          minWidth: '1ch',
+                          padding: 0,
+                          margin: 0,
+                          background: 'transparent',
+                        }}
+                        value={editValue}
+                        onChange={e => setEditValue(e.target.value)}
+                        onBlur={() => {
+                          updateHaikuLine('english', lineIndex, editValue);
+                          setEditing(null);
+                        }}
+                        onKeyDown={e => {
+                          if (e.key === 'Enter') {
                             updateHaikuLine('english', lineIndex, editValue);
                             setEditing(null);
-                          }}
-                          onKeyDown={e => {
-                            if (e.key === 'Enter') {
-                              updateHaikuLine('english', lineIndex, editValue);
-                              setEditing(null);
-                            }
-                          }}
-                        />
-                      ) : (
-                        <p
-                          className="text-base font-light text-gray-600 w-auto cursor-pointer"
-                          onClick={() => {
-                            setEditing({ type: 'english', index: lineIndex });
-                            setEditValue(selectedHaiku?.english?.[lineIndex] || "");
-                          }}
-                        >
-                          {selectedHaiku?.english?.[lineIndex]}
-                        </p>
-                      )}
-                    </div>
-                  ))}
+                          }
+                        }}
+                      />
+                    ) : (
+                      <p
+                        className="text-base font-light text-gray-600 w-auto cursor-pointer"
+                        onClick={() => {
+                          setEditing({ type: 'english', index: lineIndex });
+                          setEditValue(selectedHaiku?.english?.[lineIndex] || "");
+                        }}
+                      >
+                        {selectedHaiku?.english?.[lineIndex]}
+                      </p>
+                    )}
+                  </div>
+                ))}
 
-                  {selectedHaiku?.image_names && selectedHaiku?.image_names.length === 3 && (
-                    <div className="mt-6 flex gap-4 justify-center">
-                      {selectedHaiku?.image_names.map((imageName, imgIndex) => (
-                        <img
-                          key={imageName}
-                          src={`/images/${imageName}`}
-                          alt={imageName || ""}
-                          style={{
-                            width: '130px',
-                            height: '130px',
-                            objectFit: 'cover',
-                          }}
-                          onClick={() => {
-                            let find = haikus.findIndex((haiku) => haiku.english[0] === selectedHaiku.english[0])
-                            console.log(find);
-                            
-                            if (find>=0) {
-                              console.log(haikus.map((haiku, index) => index === find ? { ...haiku, selectedImage: imageName } : haiku));
-                              if (imageName != selectedHaiku.selectedImage) {
-                                setSelectedHaiku({ ...selectedHaiku, selectedImage: imageName })
-                              }
-                              setHaikus(haikus.map((haiku, index) => index === find ? { ...haiku, selectedImage: imageName } : haiku))
+                {selectedHaiku?.image_names && selectedHaiku?.image_names.length === 3 && (
+                  <div className="mt-6 flex gap-4 justify-center">
+                    {selectedHaiku?.image_names.map((imageName, imgIndex) => (
+                      <img
+                        key={imageName}
+                        src={`/images/${imageName}`}
+                        alt={imageName || ""}
+                        style={{
+                          width: '130px',
+                          height: '130px',
+                          objectFit: 'cover',
+                        }}
+                        onClick={() => {
+                          let find = haikus.findIndex((haiku) => haiku.english[0] === selectedHaiku.english[0])
+                          console.log(find);
+                          
+                          if (find>=0) {
+                            console.log(haikus.map((haiku, index) => index === find ? { ...haiku, selectedImage: imageName } : haiku));
+                            if (imageName != selectedHaiku.selectedImage) {
+                              setSelectedHaiku({ ...selectedHaiku, selectedImage: imageName })
                             }
-                          }}
-                          className={(selectedHaiku?.selectedImage === imageName) ? `suggestion-card-image-focus` : `haiku-card-image`}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </div>
-                {/* ))} */}
+                            setHaikus(haikus.map((haiku, index) => index === find ? { ...haiku, selectedImage: imageName } : haiku))
+                          }
+                        }}
+                        className={(selectedHaiku?.selectedImage === imageName) ? `suggestion-card-image-focus` : `haiku-card-image`}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </CardContent>
@@ -189,16 +182,14 @@ export function HaikuWorkspace({ haikus, setHaikus, selectedHaiku, setSelectedHa
       </div>
 
       {/* File Explorer & Tools */}
-      <div className="space-y-6">
+      <div className="h-full flex flex-col min-h-0">
         {/* File Explorer */}
-        <Card className="rounded-2xl shadow-sm mr-4">
+        <Card className="rounded-2xl shadow-sm mr-4 h-full flex flex-col min-h-0">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg">Haikus</CardTitle>
           </CardHeader>
-          <CardContent>
-            <ScrollArea className="h-[605px] ">
-              {/* <div className="space-y-2"> */}
-              {/* <div className="haiku-stack"> */}
+          <CardContent className="flex-1 flex flex-col min-h-0">
+            <ScrollArea className="flex-1 min-h-0">
               {haikus.length > 0 && haikus.map((haiku, index) => (
                 <div
                   key={index}
@@ -252,14 +243,9 @@ export function HaikuWorkspace({ haikus, setHaikus, selectedHaiku, setSelectedHa
                   </div>
                 </div>
               ))}
-              {/* </div> */}
-              {/* </div> */}
             </ScrollArea>
           </CardContent>
         </Card>
-
-
-
       </div>
     </div>
   )
