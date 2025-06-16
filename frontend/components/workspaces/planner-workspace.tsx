@@ -372,7 +372,7 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
                       key={project.projectName + Math.random()}
                       variant="outline"
                       className={`w-full justify-start gap-2 ${project.isSelected ? "bg-gray-100" : ""}`}
-                      onClick={() => setTasks(tasks.map((task) => (task.projectName == project.projectName ? { ...task, isSelected: false } : { ...task, isSelected: false })))}
+                      onClick={() => setTasks(tasks.map((task) => (task.projectName == project.projectName ? { ...task, isSelected: true } : { ...task, isSelected: false })))}
                     >
                       <Calendar className="h-4 w-4" />
                       {project.projectName}
