@@ -5,6 +5,9 @@ import { Workspace } from "@/components/workspace"
 import { AppSidebar } from "@/components/app-sidebar"
 import { SidebarProvider } from "@/components/ui/sidebar"
 import type { AgentType } from "@/lib/types"
+import { useCopilotChatSuggestions } from "@copilotkit/react-ui"
+import { suggestions } from "@/lib/prompts"
+import { usePathname } from "next/navigation"
 
 export function AppLayout() {
   const [selectedAgent, setSelectedAgent] = useState<AgentType>("Researcher")
@@ -12,27 +15,22 @@ export function AppLayout() {
     { role: "assistant", content: "Hello! I'm your AI assistant. How can I help you today?" },
   ])
 
-  const addMessage = (message: string) => {
-    setMessages([...messages, { role: "user", content: message }])
+  const pathname = usePathname()
 
-    // Simulate AI response
-    setTimeout(() => {
-      const responses = {
-        Researcher: "I've researched this topic extensively. Here are my findings...",
-        Planner: "Based on your request, I've created a strategic plan with the following steps...",
-        Coder:
-          "Here's the code implementation I recommend:\n\n```js\nconst solution = () => {\n  // Implementation\n  return result;\n};\n```",
-      }
+  // useCopilotChatSuggestions({
+  //   instructions : suggestions.mastra,
+  //   available : pathname.includes("mastra") ? "enabled" : "disabled"
+  // })
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: responses[selectedAgent],
-        },
-      ])
-    }, 1000)
-  }
+  useCopilotChatSuggestions({
+    instructions : suggestions.langgraph,
+    available : pathname.includes("langgraph") ? "enabled" : "disabled"
+  })
+
+  useCopilotChatSuggestions({
+    instructions : suggestions.crewai,
+    available : pathname.includes("crewai") ? "enabled" : "disabled"
+  })
 
   return (
     <SidebarProvider>

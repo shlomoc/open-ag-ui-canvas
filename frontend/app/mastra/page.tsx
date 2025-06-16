@@ -24,8 +24,8 @@ function CopilotKitWrapper() {
   // }, [currentAgent])
   return (
     <>
-      <CopilotKit runtimeUrl={process.env.REMOTE_ACTION_URL_MASTRA || "http://localhost:4111/copilotkit"} agent={currentAgent.id}>
-        <AppLayout />
+      <CopilotKit runtimeUrl={process.env.NEXT_PUBLIC_REMOTE_ACTION_URL_MASTRA || "http://localhost:4111/copilotkit"} agent={currentAgent.id}>
+        <AppLayout /> 
       </CopilotKit>
     </>
   )

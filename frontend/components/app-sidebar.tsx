@@ -11,6 +11,9 @@ import { AgentSelector } from "@/components/agent-selector"
 import type { AgentType } from "@/lib/types"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
 import { CopilotChat } from "@copilotkit/react-ui"
+import initials from "@/lib/prompts"
+import { useAgent } from "../lib/agent-provider"
+import { usePathname } from "next/navigation"
 
 interface AppSidebarProps {
   messages: { role: "user" | "assistant"; content: string }[]
@@ -20,12 +23,17 @@ interface AppSidebarProps {
 }
 
 export function AppSidebar({ messages, addMessage, selectedAgent, setSelectedAgent }: AppSidebarProps) {
-
-
+  const {currentAgent} = useAgent()
+  const pathname = usePathname()
   return (
     <>
       <div className="h-full rounded-xl">
         <CopilotChat
+          labels={ 
+            {
+              initial : pathname.includes("langgraph") ? initials.langgraph : pathname.includes("crewai") ? initials.crewai : initials.mastra
+              }
+            }
           className="h-full rounded-xl border-l-2 border-muted-foreground/20"
           Input={({onSend, inProgress}) => {
             const [input, setInput] = useState("")
