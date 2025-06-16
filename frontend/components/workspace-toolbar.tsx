@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Bot, Users, Save, Download, Share, MoreHorizontal, Zap, Eye, Edit3 } from "lucide-react"
 import type { AgentType } from "@/lib/types"
+import { usePathname } from "next/navigation"
 
 interface WorkspaceToolbarProps {
   selectedAgent: AgentType
@@ -16,7 +17,7 @@ interface WorkspaceToolbarProps {
 
 export function WorkspaceToolbar({ selectedAgent, isAgentActive, setIsAgentActive }: WorkspaceToolbarProps) {
   const [collaborators] = useState(2) // Mock collaborator count
-
+  const pathname = usePathname()
   return (
     <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-16 items-center justify-between px-8">
@@ -25,7 +26,7 @@ export function WorkspaceToolbar({ selectedAgent, isAgentActive, setIsAgentActiv
             <h1 className="text-xl font-semibold">Shared Workspace</h1>
             <Badge variant="outline" className="gap-1">
               <Bot className="h-3 w-3" />
-              {selectedAgent}
+              {pathname.includes("mastra") ? "Haiku" : pathname.includes("langgraph") ? "Researcher" : "Planner"}
             </Badge>
           </div>
 

@@ -85,7 +85,7 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
   })
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
       {/* Main Research Document */}
       <div className="lg:col-span-2 space-y-6">
         <Card className="rounded-2xl shadow-sm max-h-[calc(100vh-64px)] overflow-y-auto">
@@ -100,7 +100,7 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
               )}
             </div>
           </CardHeader>
-          <CardContent className="min-h-[500px]">
+          <CardContent className="h-[625px] pb-4">
             {isEditing ? (
               <textarea
                 className="w-full h-[400px] border rounded p-2 text-base font-sans"
@@ -154,7 +154,7 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
       {/* Research Tools Sidebar */}
       <div className="space-y-6 lg:sticky lg:self-start">
         {/* Sources */}
-        <Card className="rounded-2xl shadow-sm">
+        <Card className="rounded-2xl shadow-sm mr-4">
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">Sources</CardTitle>
@@ -203,7 +203,7 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
             )}
           </CardHeader>
           <CardContent>
-            <ScrollArea className="h-[350px]">
+            <ScrollArea className="h-[590px]">
               <div className="space-y-3">
                 {resources.length === 0 ? (
                   <div className="text-center text-muted-foreground py-8">No sources to show</div>
@@ -254,42 +254,7 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
           </CardContent>
         </Card>
 
-        {/* Key Findings */}
-        {/* <Card className="rounded-2xl shadow-sm">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg">Key Findings</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {findings.map((finding, index) => (
-                <div key={index} className="p-3 rounded-lg bg-muted/50">
-                  <p className="text-sm">{finding}</p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card> */}
-
-        {/* Quick Actions */}
-        {/* <Card className="rounded-2xl shadow-sm">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg">Quick Actions</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <Search className="h-4 w-4" />
-              Search for Sources
-            </Button>
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <BookOpen className="h-4 w-4" />
-              Generate Summary
-            </Button>
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <Lightbulb className="h-4 w-4" />
-              Get Insights
-            </Button>
-          </CardContent>
-        </Card> */}
+       
       </div>
     </div>
   )

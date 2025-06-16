@@ -16,27 +16,5 @@ type HaikuRuntimeContext = {
 export const mastra = new Mastra({
   agents: { 
     haikuAgent
-  },
-  storage: new LibSQLStore({
-    url: ":memory:"
-  }),
-  server: {
-    // disable cors for getting started
-    cors: {
-      origin: "*",
-      allowMethods: ["*"],
-      allowHeaders: ["*"],
-    },
-    apiRoutes: [
-      // 🪁 Copilot Runtime: https://docs.copilotkit.ai/guides/self-hosting
-      registerCopilotKit<HaikuRuntimeContext>({
-        path: "/copilotkit",
-        resourceId: "haikuAgent",
-        setContext: (c, runtimeContext) => {
-          runtimeContext.set("user-id", c.req.header("X-User-ID") || "anonymous");
-          // whatever context you need to set ...
-        }
-      }),
-    ],
-  },
+  }
 });

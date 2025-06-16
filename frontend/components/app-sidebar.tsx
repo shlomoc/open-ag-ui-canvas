@@ -27,14 +27,14 @@ export function AppSidebar({ messages, addMessage, selectedAgent, setSelectedAge
   const pathname = usePathname()
   return (
     <>
-      <div className="h-full rounded-xl">
+      <div className="h-full">
         <CopilotChat
           labels={ 
             {
               initial : pathname.includes("langgraph") ? initials.langgraph : pathname.includes("crewai") ? initials.crewai : initials.mastra
               }
             }
-          className="h-full rounded-xl border-l-2 border-muted-foreground/20"
+          className="h-full"
           Input={({onSend, inProgress}) => {
             const [input, setInput] = useState("")
             return (<>
@@ -68,7 +68,7 @@ export function AppSidebar({ messages, addMessage, selectedAgent, setSelectedAge
 
       </SidebarFooter> */}
 
-      <SidebarRail />
+      {/* <SidebarRail /> */}
     </>
   )
 }

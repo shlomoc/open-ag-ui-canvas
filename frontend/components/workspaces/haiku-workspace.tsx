@@ -1,16 +1,10 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Textarea } from "@/components/ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Code, Play, FileText, Lightbulb, Bug } from "lucide-react"
 
 interface HaikuWorkspaceProps {
-  // content: string
   haikus: Haiku[]
   setHaikus: (haiku: Haiku[]) => void;
   selectedHaiku: Haiku
@@ -56,7 +50,7 @@ export function HaikuWorkspace({ haikus, setHaikus, selectedHaiku, setSelectedHa
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-16">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
       {/* Code Editor */}
       <div className="lg:col-span-3 space-y-6">
         <Card className="rounded-2xl shadow-sm">
@@ -67,7 +61,7 @@ export function HaikuWorkspace({ haikus, setHaikus, selectedHaiku, setSelectedHa
               </div>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="h-[630px]">
             <div className="flex-1 p-8 flex items-center justify-center " style={{ marginLeft: '-48px' }}>
               <div className="haiku-stack">
                 {/* {haikus.map((haiku, index) => ( */}
@@ -197,12 +191,12 @@ export function HaikuWorkspace({ haikus, setHaikus, selectedHaiku, setSelectedHa
       {/* File Explorer & Tools */}
       <div className="space-y-6">
         {/* File Explorer */}
-        <Card className="rounded-2xl shadow-sm">
+        <Card className="rounded-2xl shadow-sm mr-4">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg">Haikus</CardTitle>
           </CardHeader>
           <CardContent>
-            <ScrollArea className="h-[340px]">
+            <ScrollArea className="h-[605px] ">
               {/* <div className="space-y-2"> */}
               {/* <div className="haiku-stack"> */}
               {haikus.length > 0 && haikus.map((haiku, index) => (

@@ -353,7 +353,7 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
             </CardContent>
           </Card>
         ) : (
-          <Card className="rounded-2xl shadow-sm min-h-[250px]">
+          <Card className="rounded-2xl shadow-sm min-h-[335px]">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-lg">Project List</CardTitle>

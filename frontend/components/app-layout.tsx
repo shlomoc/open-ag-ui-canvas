@@ -17,10 +17,10 @@ export function AppLayout() {
 
   const pathname = usePathname()
 
-  // useCopilotChatSuggestions({
-  //   instructions : suggestions.mastra,
-  //   available : pathname.includes("mastra") ? "enabled" : "disabled"
-  // })
+  useCopilotChatSuggestions({
+    instructions : suggestions.mastra,
+    available : pathname.includes("mastra") ? "enabled" : "disabled"
+  })
 
   useCopilotChatSuggestions({
     instructions : suggestions.langgraph,
@@ -35,12 +35,6 @@ export function AppLayout() {
   return (
     <SidebarProvider>
       <div className="flex h-screen w-full overflow-hidden bg-background">
-        {/* <AppSidebar
-          messages={messages}
-          addMessage={addMessage}
-          selectedAgent={selectedAgent}
-          setSelectedAgent={setSelectedAgent}
-        /> */}
         <Workspace
           selectedAgent={selectedAgent}
           lastMessage={messages.filter((m) => m.role === "assistant").pop()?.content || ""}
