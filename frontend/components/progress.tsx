@@ -44,7 +44,7 @@ export function Progress({
               )}
             </div>
             <div className="flex-1 flex justify-center py-2 pl-2 pr-4">
-              <div className="flex-1 flex items-center text-xs">
+              <div className="flex-1 flex items-center text-xs break-all w-0">
                 {log.message.replace(
                   /https?:\/\/[^\s]+/g, // Regex to match URLs
                   (url) => (url) // Replace with truncated URL

@@ -155,8 +155,8 @@ export function Workspace({ selectedAgent, lastMessage }: WorkspaceProps) {
                           alt={imageName}
                           tabIndex={0}
                           style={{
-                            width: "4rem",
-                            height: "4rem",
+                            width: "5rem",
+                            height: "5rem",
                           }}
                           className={haiku?.selectedImage === imageName ? `suggestion-card-image-focus` : `haiku-card-image`}
                         />
@@ -212,7 +212,7 @@ export function Workspace({ selectedAgent, lastMessage }: WorkspaceProps) {
       <div className="flex-1 h-screen overflow-auto p-2">
         <div className="flex h-full gap-6">
           {/* Chat UI Sidebar Placeholder */}
-          <div className="w-80 min-w-[18rem] max-w-xs bg-white flex flex-col justify-between">
+          <div className="w-96 min-w-[22rem] max-w-sm bg-white flex flex-col justify-between">
             {/* <div className="p-4 text-gray-400 text-center">Chat UI Placeholder</div> */}
             <AppSidebar
               messages={[]}

@@ -209,7 +209,7 @@ export function HaikuWorkspace({ haikus, setHaikus, selectedHaiku, setSelectedHa
                       margin: "0 auto",
                       width: "90%",
                       maxWidth: "320px",
-                      transform: "scale(0.35)",
+                      transform: "scale(0.29)",
                       transformOrigin: "top left",
                     }}
                   >
