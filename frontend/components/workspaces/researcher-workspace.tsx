@@ -43,7 +43,7 @@ function extractReportMarkdown(content: string) {
   return content;
 }
 
-const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, setContent, lastMessage, isAgentActive, sources, setIsAgentActive   }: ResearcherWorkspaceProps) {
+const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, setContent, lastMessage, isAgentActive, sources, setIsAgentActive }: ResearcherWorkspaceProps) {
   // const [sources, setSources] = useState(initialSources)
   const [showAddSource, setShowAddSource] = useState(false)
   const [newSource, setNewSource] = useState({ title: "", url: "", description: "" })
@@ -120,8 +120,10 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
               />
             ) : (
               <div onClick={() => {
-                setIsEditing(true)
-                setEditValue(extractReportMarkdown(workspaceContent))
+                if (!isAgentActive) {
+                  setIsEditing(true)
+                  setEditValue(extractReportMarkdown(workspaceContent))
+                }
               }}
                 style={{ cursor: "pointer", height: '100%' }}
                 title="Click to edit"
@@ -244,7 +246,7 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
                             setState({
                               ...state,
                               resources: resources.filter((_, i) => i !== index) as { title: string, url: string, description: string }[]
-                            })  
+                            })
                           }}
                         >
                           <X className="h-3 w-3" />
