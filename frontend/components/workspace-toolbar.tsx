@@ -16,7 +16,7 @@ interface WorkspaceToolbarProps {
 }
 
 export function WorkspaceToolbar({ selectedAgent, isAgentActive, setIsAgentActive }: WorkspaceToolbarProps) {
-  const [collaborators] = useState(2) // Mock collaborator count
+  // const [collaborators] = useState(2) // Mock collaborator count
   const pathname = usePathname()
   return (
     <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -44,10 +44,10 @@ export function WorkspaceToolbar({ selectedAgent, isAgentActive, setIsAgentActiv
               {isAgentActive ? "Agent Active" : "Agent Standby"}
             </Button>
 
-            <Badge variant="secondary" className="gap-1">
+            {/* <Badge variant="secondary" className="gap-1">
               <Users className="h-3 w-3" />
               {collaborators} online
-            </Badge>
+            </Badge> */}
           </div>
         </div>
 
