@@ -19,6 +19,7 @@ interface ResearcherWorkspaceProps {
   lastMessage: string
   isAgentActive: boolean
   sources: { title: string, url: string, description: string }[]
+  setIsAgentActive: (active: boolean) => void
 }
 
 function extractReportMarkdown(content: string) {
@@ -42,7 +43,7 @@ function extractReportMarkdown(content: string) {
   return content;
 }
 
-const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, setContent, lastMessage, isAgentActive, sources }: ResearcherWorkspaceProps) {
+const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, setContent, lastMessage, isAgentActive, sources, setIsAgentActive   }: ResearcherWorkspaceProps) {
   // const [sources, setSources] = useState(initialSources)
   const [showAddSource, setShowAddSource] = useState(false)
   const [newSource, setNewSource] = useState({ title: "", url: "", description: "" })
@@ -57,7 +58,8 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
     logs: any[];
   };
 
-  const { state, setState } = useCoAgent<AgentState>({
+
+  const { state, setState, nodeName } = useCoAgent<AgentState>({
     name: "langgraphAgent",
     initialState: {
       report: "",
@@ -65,6 +67,8 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
       logs: []
     }
   })
+
+
   useCoAgentStateRender({
     name: "langgraphAgent",
     render: ({ state }) => {
@@ -128,7 +132,7 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
             )}
           </CardContent>
           {/* Agent Suggestions */}
-          {isAgentActive && lastMessage && (
+          {/* {isAgentActive && lastMessage && (
             <Card className="rounded-2xl border-primary/20 bg-primary/5 shadow-sm w-full mt-2">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg flex items-center gap-2">
@@ -148,7 +152,7 @@ const ResearcherWorkspaceComponent = function ResearcherWorkspace({ content, set
                 </div>
               </CardContent>
             </Card>
-          )}
+          )} */}
         </Card>
       </div>
       {/* Research Tools Sidebar */}

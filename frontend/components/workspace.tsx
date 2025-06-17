@@ -51,6 +51,7 @@ export function Workspace({ selectedAgent, lastMessage }: WorkspaceProps) {
       case "langgraphAgent":
         return (
           <ResearcherWorkspace
+            setIsAgentActive={setIsAgentActive}
             sources={workspaceContent.resources}
             // setSources={setWorkspaceContent}
             content={workspaceContent.content}
@@ -62,6 +63,7 @@ export function Workspace({ selectedAgent, lastMessage }: WorkspaceProps) {
       case "crewaiAgent":
         return (
           <PlannerWorkspace
+            setIsAgentActive={setIsAgentActive}
             content={workspaceContent.content}
             setContent={(content: string) => setWorkspaceContent({ ...workspaceContent, content })  }
             lastMessage={lastMessage}
@@ -71,6 +73,8 @@ export function Workspace({ selectedAgent, lastMessage }: WorkspaceProps) {
       case "haikuAgent":
         return (
           <HaikuWorkspace
+            isAgentActive={isAgentActive}
+            setIsAgentActive={setIsAgentActive}
             haikus={haikus}
             setHaikus={setHaikus}
             selectedHaiku={selectedHaiku}
@@ -215,6 +219,7 @@ export function Workspace({ selectedAgent, lastMessage }: WorkspaceProps) {
           <div className="w-96 min-w-[22rem] max-w-sm bg-white flex flex-col justify-between">
             {/* <div className="p-4 text-gray-400 text-center">Chat UI Placeholder</div> */}
             <AppSidebar
+              setIsAgentActive={setIsAgentActive}
               messages={[]}
               addMessage={() => { }}
               selectedAgent={selectedAgent}

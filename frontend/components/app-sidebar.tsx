@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -20,9 +20,10 @@ interface AppSidebarProps {
   addMessage: (message: string) => void
   selectedAgent: AgentType
   setSelectedAgent: (agent: AgentType) => void
+  setIsAgentActive: (active: boolean) => void
 }
 
-export function AppSidebar({ messages, addMessage, selectedAgent, setSelectedAgent }: AppSidebarProps) {
+export function AppSidebar({ messages, addMessage, selectedAgent, setSelectedAgent, setIsAgentActive }: AppSidebarProps) {
   const {currentAgent} = useAgent()
   const pathname = usePathname()
   return (
@@ -36,6 +37,13 @@ export function AppSidebar({ messages, addMessage, selectedAgent, setSelectedAge
             }
           className="h-full"
           Input={({onSend, inProgress}) => {
+            useEffect(() => {
+              if(inProgress) {
+                setIsAgentActive(true)
+              } else {
+                setIsAgentActive(false)
+              }
+            }, [inProgress])
             const [input, setInput] = useState("")
             return (<>
               <div className="space-y-5 px-4 py-2">
@@ -50,9 +58,11 @@ export function AppSidebar({ messages, addMessage, selectedAgent, setSelectedAge
                   />
                   <Button disabled={inProgress} 
                   onClick={(e) => {
+                    console.log("sending message")
                     e.preventDefault()
                     onSend(input)
                     setInput("")
+                    setIsAgentActive(true)
                   }} className="self-end rounded-xl px-5">
                     <Send className="mr-2 h-4 w-4" />
                     Send

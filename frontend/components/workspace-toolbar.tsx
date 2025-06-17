@@ -34,9 +34,10 @@ export function WorkspaceToolbar({ selectedAgent, isAgentActive, setIsAgentActiv
 
           <div className="flex items-center gap-2">
             <Button
+              style={{ cursor: "not-allowed" }}
               variant={isAgentActive ? "default" : "outline"}
               size="sm"
-              onClick={() => setIsAgentActive(!isAgentActive)}
+              // onClick={() => setIsAgentActive(!isAgentActive)}
               className="gap-2"
             >
               <Zap className="h-4 w-4" />
@@ -50,7 +51,7 @@ export function WorkspaceToolbar({ selectedAgent, isAgentActive, setIsAgentActiv
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <Button variant="ghost" size="sm">
             <Eye className="h-4 w-4" />
           </Button>
@@ -79,7 +80,7 @@ export function WorkspaceToolbar({ selectedAgent, isAgentActive, setIsAgentActiv
               <DropdownMenuItem>Workspace Settings</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
+        </div> */}
       </div>
     </div>
   )

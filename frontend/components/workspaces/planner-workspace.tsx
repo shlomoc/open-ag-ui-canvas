@@ -19,6 +19,7 @@ interface PlannerWorkspaceProps {
   setContent: (content: string) => void
   lastMessage: string
   isAgentActive: boolean
+  setIsAgentActive: (active: boolean) => void
 }
 
 const initialTasks = [
@@ -29,7 +30,7 @@ const initialTasks = [
 ]
 
 
-export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActive }: PlannerWorkspaceProps) {
+export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActive, setIsAgentActive }: PlannerWorkspaceProps) {
   const [tasks, setTasks] = useState([
     {
       projectName: "Launch MVP",
@@ -100,7 +101,7 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
         completed: false
       }))
 
-
+      
       setTasks(tasks.map((project) => (project.isSelected ? { ...project, tasks: [...project.tasks, ...newTasks] } : project)))
 
 
@@ -153,10 +154,11 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
     ],
     handler({ project }: { project: { projectName: string, due: string, teamCount: number, tasks: { task: string, priority: string }[] } }) {
       console.log("Adding project:", project)
+      
       setTasks(
         [...tasks.map((task) => ({ ...task, isSelected: false })), {
           projectName: project.projectName,
-          isSelected: false,
+          isSelected: true,
           due: moment(project.due).format("MMM D, YYYY"),
           teamCount: project.teamCount,
           tasks: project.tasks.map((task) => ({
@@ -184,7 +186,7 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
       }
     ],
     handler({ id }: { id: string }) {
-      debugger
+      
       console.log("Completing task:", id)
       toggleTask(id)
     }
@@ -266,7 +268,7 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
         </Card>
 
         {/* Agent Suggestions */}
-        {isAgentActive && lastMessage && (
+        {/* {isAgentActive && lastMessage && (
           <Card className="rounded-2xl border-primary/20 bg-primary/5 shadow-sm">
             <CardHeader className="pb-4">
               <CardTitle className="text-lg flex items-center gap-2">
@@ -286,7 +288,7 @@ export function PlannerWorkspace({ content, setContent, lastMessage, isAgentActi
               </div>
             </CardContent>
           </Card>
-        )}
+        )} */}
       </div>
 
       {/* Planning Tools Sidebar */}

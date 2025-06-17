@@ -3,12 +3,16 @@
 import { useEffect, useState, useRef } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Badge } from "@/components/ui/badge"
+import { Lightbulb } from "lucide-react"
 
 interface HaikuWorkspaceProps {
   haikus: Haiku[]
   setHaikus: (haiku: Haiku[]) => void;
   selectedHaiku: Haiku
   setSelectedHaiku: (haiku: Haiku) => void;
+  setIsAgentActive: (active: boolean) => void;
+  isAgentActive: boolean;
 }
 
 export interface Haiku {
@@ -18,7 +22,7 @@ export interface Haiku {
   selectedImage: string | null;
 }
 
-export function HaikuWorkspace({ haikus, setHaikus, selectedHaiku, setSelectedHaiku }: HaikuWorkspaceProps) {
+export function HaikuWorkspace({ haikus, setHaikus, selectedHaiku, setSelectedHaiku, setIsAgentActive, isAgentActive }: HaikuWorkspaceProps) {
   const [editing, setEditing] = useState<{ type: 'japanese' | 'english'; index: number } | null>(null);
   const [editValue, setEditValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -50,15 +54,21 @@ export function HaikuWorkspace({ haikus, setHaikus, selectedHaiku, setSelectedHa
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 h-full min-h-0" style={{height: '100%'}}>
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 h-full min-h-0" style={{ height: '100%' }}>
       {/* Code Editor */}
       <div className="lg:col-span-3 h-full flex flex-col min-h-0">
         <Card className="rounded-2xl shadow-sm h-full flex flex-col min-h-0">
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
+              {/* <div className="flex items-center gap-2"> */}
                 <CardTitle className="text-xl">Haiku Canvas</CardTitle>
-              </div>
+                {isAgentActive && (
+                  <Badge variant="default" className="gap-1 animate-pulse">
+                    <Lightbulb className="h-3 w-3" />
+                    Agent Contributing
+                  </Badge>
+                )}
+              {/* </div> */}
             </div>
           </CardHeader>
           <CardContent className="flex-1 flex items-center justify-center min-h-0" style={{ marginLeft: '-48px' }}>
@@ -161,8 +171,8 @@ export function HaikuWorkspace({ haikus, setHaikus, selectedHaiku, setSelectedHa
                         onClick={() => {
                           let find = haikus.findIndex((haiku) => haiku.english[0] === selectedHaiku.english[0])
                           console.log(find);
-                          
-                          if (find>=0) {
+
+                          if (find >= 0) {
                             console.log(haikus.map((haiku, index) => index === find ? { ...haiku, selectedImage: imageName } : haiku));
                             if (imageName != selectedHaiku.selectedImage) {
                               setSelectedHaiku({ ...selectedHaiku, selectedImage: imageName })
