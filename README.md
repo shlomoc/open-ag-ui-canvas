@@ -91,22 +91,41 @@ pnpm run dev
 ```bash
 cd agent
 poetry install
-pip install crewai
 ```
 
-#### To run the agent server:
+#### Required API Keys
+
+1. Create a `.env` file in the `agent` directory with the following keys:
+```
+OPENAI_API_KEY=your_openai_api_key
+TAVILY_API_KEY=your_tavily_api_key
+```
+
+2. Create a `.env` file in the `frontend` directory with the following keys:
+```
+OPENAI_API_KEY=your_openai_api_key
+REMOTE_ACTION_URL=http://0.0.0.0:8000/copilotkit
+NEXT_PUBLIC_REMOTE_ACTION_URL_MASTRA=http://localhost:4111
+```
+
+#### To run the Python agent server (for Research and Planner Canvases):
 
 ```bash
 poetry run python main.py
 ```
+This runs the FastAPI backend server that powers:
+- Research Canvas using LangGraph
+- Planner Canvas using CrewAI
 
-#### To run the agent server:
+#### To run the Mastra agent server (for Haiku Canvas):
 
 ```bash
-//Need to be inside frontend directory
+# Need to be inside frontend directory
 cd frontend
 pnpm run dev:agent
 ```
+This runs the Mastra agent server that powers:
+- Haiku Canvas using Mastra AGUI framework
 
 
 ---

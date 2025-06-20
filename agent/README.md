@@ -1,122 +1,37 @@
-# AGUI Protocol Demo: Research Canvas, Planner Canvas, and Haiku Canvas
+# Agent Backend for AGUI Protocol Demo
 
-This repository is a demonstration of the **AGUI protocol** featuring three interactive demo applications:
+This directory contains the Python FastAPI backend that implements the agent logic for the Research Canvas and Planner Canvas applications.
 
-- **Research Canvas**: An AI-powered research assistant.
-- **Planner Canvas**: An AI-driven project planner.
-- **Haiku Canvas**: A creative haiku generator and editor.
+## Agent Components
 
-The project is organized into two main parts:
-- `frontend/`: A Next.js/React-based UI for interacting with the canvases and agents.
-- `agent/`: A Python FastAPI backend implementing the AGUI protocol, providing agent logic for research, planning, and haiku generation.
+- **Research Canvas**: Implemented using LangGraph
+- **Planner Canvas**: Implemented using CrewAI
 
----
+## Setup
 
-## Project Structure
+Please refer to the main [README.md](../README.md) in the root directory for complete setup instructions.
 
-```
-.
-├── agent/         # Python FastAPI backend with AGUI protocol agents
-├── frontend/      # Next.js frontend for the canvas applications and Mastra Agent
-└── README.md
-```
+### Quick Start
 
----
-
-## Demo Applications
-
-### 1. Research Canvas
-
-- **Purpose**: Helps users gather, analyze, and structure research with AI assistance.
-- **Features**:
-  - Research document editor with agent suggestions.
-  - Source management and annotation.
-  - Real-time agent insights and progress tracking.
-
-### 2. Planner Canvas
-
-- **Purpose**: Assists in project planning, task management, and team coordination.
-- **Features**:
-  - Project and task creation, assignment, and prioritization.
-  - AI-powered suggestions for planning and task breakdown.
-  - Team and deadline management.
-
-### 3. Haiku Canvas
-
-- **Purpose**: A creative space for generating and editing haikus with AI.
-- **Features**:
-  - Edit and translate haikus (Japanese/English).
-  - Visual selection of haiku-related images.
-  - Interactive, editable haiku lines.
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- **Frontend**: Node.js (v18+ recommended), pnpm
-- **Agent**: Python 3.12+, [Poetry](https://python-poetry.org/)
-
----
-
-## Setup Instructions
-
-### 1. Clone the Repository
-
+1. Install dependencies:
 ```bash
-git clone https://github.com/ag-ui-protocol/open-ag-ui-canvas
-cd open-ag-ui-canvas
-```
-
----
-
-### 2. Frontend Setup
-
-```bash
-cd frontend
-pnpm install
-```
-
-#### To run the frontend (Next.js):
-
-```bash
-pnpm run dev
-```
-
----
-
-### 3. Agent Setup
-
-```bash
-cd agent
 poetry install
-pip install crewai
 ```
 
-#### To run the agent server:
+2. Create a `.env` file in this directory with required API keys:
+```
+OPENAI_API_KEY=your_openai_api_key
+TAVILY_API_KEY=your_tavily_api_key
+```
 
+Note: You'll also need to create a separate `.env` file in the frontend directory. See the main README for details.
+
+3. Run the agent server:
 ```bash
 poetry run python main.py
 ```
 
-#### To run the agent server:
-
-```bash
-//Need to be inside frontend directory
-cd frontend
-pnpm run dev:agent
-```
-
-
----
-
-## Project Details
-
-- **AGUI Protocol**: This demo showcases the AGUI protocol for agent-driven UI applications.
-- **Tech Stack**:
-  - **Frontend**: Next.js, React, TailwindCSS, CopilotKit, Mastra AGUI
-  - **Backend**: FastAPI, LangGraph, CrewAI, CopilotKit Python SDK
+This will start the FastAPI server on port 8000 that powers both the Research Canvas (LangGraph) and Planner Canvas (CrewAI) applications.
 
 ---
 
