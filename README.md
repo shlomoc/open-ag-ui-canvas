@@ -139,6 +139,12 @@ This runs the Mastra agent server that powers:
 
 ---
 
+## Architecture
+
+![Architecture Diagram](assets/architecture-diagram.png)
+
+---
+
 ## Contributing
 
 Feel free to open issues or pull requests for improvements, bug fixes, or new features!
